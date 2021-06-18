@@ -20,7 +20,7 @@ const Color = (props) => {
             <span className="delete" data-testid="delete" onClick={handleDelete}>x</span>
             {` ${color.color}`}
         </span>
-        <div 
+        <div  data-testid="box"
             className="color-box"
             style={{ backgroundColor: color.code.hex }}
         />

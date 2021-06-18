@@ -42,7 +42,6 @@ test("Renders a list of colors without errors", () => {
 test("Renders the EditForm when editing = true and does not render EditForm when editing = false", () => {
   render(<ColorList colors={testColors} toggleEdit={false} />);
   const text = screen.queryByText(/edit color/i);
-  //console.log("toggleEdit:", ColorList.toggleEdit);
   if (!ColorList.toggleEdit) {
     expect(text).not.toBeInTheDocument();
   } else {

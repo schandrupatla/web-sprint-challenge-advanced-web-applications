@@ -18,24 +18,7 @@ const BubblePage = () => {
     
   },[])
   
-  //----------sree--------------
-  // useEffect(()=>{
-  //   getColorsData();
-
-  // },[])
-
-  // const getColorsData =() =>{
-  //   axiosWithAuth()
-  //   .get('/colors')
-  //   .then(res=>{
-  //     //console.log("Colors res:",res);
-  //     setColors(res.data);
-  //   })
-  //   .catch(err=>{
-  //     console.log(err);
-  //   })
-  // }
-
+ 
   const toggleEdit = (value) => {
     setEditing(value);
   };

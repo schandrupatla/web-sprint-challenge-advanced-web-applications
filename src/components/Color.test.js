@@ -24,35 +24,29 @@ test("Renders the color passed into component", () => {
 });
 
 test("Executes handleDelete and toggleEdit property when the 'x' icon is clicked", () => {
-    // const mockhandleDelete = jest.fn();
-    // const mocktoggleEdit = jest.fn();
+    const mockhandleDelete = jest.fn();
+    const mocktoggleEdit = jest.fn();
+    const mocksetEditColor=jest.fn();
 
-    // render(<Color toggleEdit={mocktoggleEdit} handleDelete={mockhandleDelete} />)
-    // const button = screen.getByTestId("data-testid");
-    // console.log("Button:",button);
-    // userEvent.click(button);
+    render(<Color  setEditColor={mocksetEditColor} color={testColor} toggleEdit={mocktoggleEdit} deleteColor={mockhandleDelete} />)
+     const button = screen.getByTestId("delete");
+     userEvent.click(button);
+     expect(mocktoggleEdit).toHaveBeenCalledTimes(1);
+     expect(mockhandleDelete).toHaveBeenCalledTimes(1);
+     const colorNum =screen.queryAllByTestId("color");
+     expect(colorNum).toHaveLength(1);
 });
 
 test("Executes setEditColor and toggleEdit property when color div is clicked", () => {
+     const mockhandleDelete = jest.fn();
+     const mocktoggleEdit = jest.fn();
+     const mocksetEditColor=jest.fn();
+    render(<Color  setEditColor={mocksetEditColor} color={testColor} toggleEdit={mocktoggleEdit} deleteColor={mockhandleDelete} />)
+     let colorDiv = screen.queryByTestId('box');
+     userEvent.click(colorDiv);
+     expect(mocksetEditColor).toHaveBeenCalledTimes(1);
+     expect(mocktoggleEdit).toHaveBeenCalledTimes(1);
+    
     
 });
 
-// ------------
-// test("calls getData when button is clicked", ()=> {
-//     const mockGetData = jest.fn();
-
-//     //Arrange: renders component
-//     render(<MissionForm isFetchingData={false} getData={mockGetData}/>)
-
-//     //Act: Click button
-//     const button = screen.getByRole("button");
-//     userEvent.click(button);
-//     userEvent.click(button);
-//     userEvent.click(button);
-
-//     //Assert: ?
-//     expect(mockGetData.mock.calls.length === 3).toBeTruthy();
-//     expect(mockGetData.mock.calls.length).toBe(3);
-//     expect(mockGetData.mock.calls).toHaveLength(3);
-//     expect(mockGetData).toHaveBeenCalledTimes(3);
-// });
