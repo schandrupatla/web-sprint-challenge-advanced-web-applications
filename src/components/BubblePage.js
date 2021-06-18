@@ -2,22 +2,74 @@ import React, { useEffect, useState } from "react";
 
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
-import { editColorService, deleteColorService } from '../services/colorServices';
+// import { editColorService, deleteColorService } from '../services/colorServices';
 import fetchColorService from '../services/fetchColorService';
+
+
 
 const BubblePage = () => {
   const [colors, setColors] = useState([]);
   const [editing, setEditing] = useState(false);
+
+  // useEffect(()=>{
+  //    setColors(fetchColorService());  
+  //    console.log("BP-Colors:",colors);
+
+  // },[])
+  
+  //----------sree--------------
+  useEffect(()=>{
+    getColorsData();
+
+  },[])
+
+  const getColorsData =() =>{
+    axiosWithAuth()
+    .get('/colors')
+    .then(res=>{
+      console.log("Colors res:",res);
+      setColors(res.data);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
 
   const toggleEdit = (value) => {
     setEditing(value);
   };
 
   const saveEdit = (editColor) => {
+    axiosWithAuth()
+      .put(`/colors/${editColor.id}`, editColor)
+      .then((res) => {
+        console.log("Save data:",res.data)
+        //setColorToEdit(res.data);
+        setColors(colors.map(color => { 
+          if(color.id === editColor.id) {
+            return res.data
+          }
+        return color;
+        }))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    
   };
 
   const deleteColor = (colorToDelete) => {
+    axiosWithAuth()
+      .delete(`/colors/${colorToDelete.id}`)
+      .then((res) => {
+        const newColors = colors.filter((color) => color.id !== JSON.parse(res.data));
+       setColors(newColors);
+     })
+     .catch((err) => {
+       console.log(err);
+     });
   };
 
   return (

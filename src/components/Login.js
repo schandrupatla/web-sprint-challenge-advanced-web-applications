@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+
+  const { push } = useHistory();
+  
   const [bubble, setBubble] = useState({
     credentials: {
       username:"Lambda",
@@ -25,6 +29,7 @@ const Login = () => {
     .then(res=>{
       //console.log(res.data.payload);
       localStorage.setItem("token", res.data.payload);
+      push("/bubblepage");
     })
     .catch(err=>{
       console.log(err);
